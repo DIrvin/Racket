@@ -1,0 +1,31 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname IrvinAssignment2CSC135) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ())))
+; Derek Irvin Homework 2
+; Professor Gordon
+; November 10th, 2014
+
+; A: Fracktorial
+;Factorial function for even numbers
+(define (fracktorial x)
+  ; if X is less than 2 it can only be 1 or 0. which is only 1 fracktorial wise
+  (if (< x 2) 1
+      ; we know that even numbers have no remainder. so if there is no
+      ; remainder the value of x must be even. So we multiply the value and 
+      ; jump to the next even value
+          (if (= 0 (modulo x 2)) (* x (fracktorial (- x 2)))
+              ; else the value must be odd, we get the next even value and add it.  
+              (* (- x 1) (fracktorial(- x 2))))))
+
+;takes a function and recursively applies it to x until x is greater than 100
+(define (applyUntilTooBig f x)
+  (if (< 100 x) x
+      (applyUntilTooBig f (f x))))
+
+;returns a function that adds A to each item in a list, then multiplies it by B.
+(define (makeExploder A B)
+  (define (exploder L)
+    (if (null? L) '()
+        (cons (* (+ (car L) A) B) (exploder (cdr L)))))
+  exploder
+)
